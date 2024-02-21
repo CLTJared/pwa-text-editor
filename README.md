@@ -16,8 +16,18 @@ Open your web browser and navigate to `localhost:3000` with the server running. 
 
 You can also install the PWA by clicking on the install button in the browser window while using Google Chrome or other browsers that support PWAs.
 
+# Technologies Used
+* Webpack
+* Workbox
+* Concurrently
+* IndexedDB (via idb)
+* Express
+* NodeJS
+* Babel
+
+
 ## Screenshot
-![Image](./jate-application-image.JPG)
+![Application Usage](./jate-application-image.JPG)
 
 ## Demo
 [View on Render](https://pwa-text-editor-haho.onrender.com/)
