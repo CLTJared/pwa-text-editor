@@ -11,23 +11,23 @@ module.exports = () => {
       install: './src/js/install.js'
     },
     output: {
-      filename: '[name].bundle.js',
+      filename: '[name].js',
       path: path.resolve(__dirname, 'dist'),
     },
     plugins: [
       new HtmlWebpackPlugin({
         template: './index.html',
-        title: 'JATE',
+        title: 'Webpack Plugin',
       }),
       new InjectManifest({
         swSrc: './src-sw.js',
         swDest: 'src-sw.js',
       }),
-
-      new GenerateSW(),
       
       new WebpackPwaManifest({
         name: 'Just Another Text Editor',
+        inject: true,
+        fingerprints: false,
         short_name: 'J.A.T.E',
         description: 'Takes notes with JavaScript syntax higlighting!',
         background_color: '#225ca3',
@@ -35,8 +35,8 @@ module.exports = () => {
         crossorigin: 'anonymous', //can be null, use-credentials or anonymous
         orientation: 'portrait',
         display: 'standalone',
-        start_url: './',
-        publicPath: './',
+        start_url: '/',
+        publicPath: '/',
         icons: [
           {
             src: path.resolve('src/images/logo.png'),
@@ -54,14 +54,21 @@ module.exports = () => {
           test: /\.css$/i,
           use: ["style-loader", "css-loader"],
         },
+        {
+          test: /\.(png|svg|jpg|jpeg|gif)$/i,
+          type: 'asset/resource',
+        },
         { // rule for babel (ES6 -> ES5 conversion)
           test: /\.m?js$/,
-          exclude: /(node_modules|bower_components)/,
+          exclude: /node_modules/,
           use: {
             loader: 'babel-loader',
             options: { 
               presets: ['@babel/preset-env'],
-              plugins: ['@babel/plugin-proposal-object-rest-spread', '@babel/transform-runtime'],
+              plugins: [
+                '@babel/plugin-proposal-object-rest-spread', 
+                '@babel/transform-runtime'
+              ],
             }
           }
         },
